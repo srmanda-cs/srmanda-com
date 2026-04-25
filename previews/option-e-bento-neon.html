@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Option E — Terminal Neon Bento (FOMO Edition)</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #07080f;
+        --bg2: #0d0e1a;
+        --surface: rgba(255, 255, 255, 0.04);
+        --surface2: rgba(255, 255, 255, 0.07);
+        --green: #00ff87;
+        --purple: #b347ff;
+        --cyan: #00d4ff;
+        --pink: #ff3cac;
+        --yellow: #ffd60a;
+        --text: #f0f0f0;
+        --muted: #6b7280;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-bright: rgba(255, 255, 255, 0.15);
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          "Inter",
+          -apple-system,
+          sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Grain texture overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1000;
+        opacity: 0.4;
+      }
+
+      /* ===================== NAV ===================== */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 16px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(7, 8, 15, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-logo {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: var(--green);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-logo .dot {
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+        animation: pulse-green 2s infinite;
+        box-shadow: 0 0 8px var(--green);
+      }
+
+      @keyframes pulse-green {
+        0%,
+        100% {
+          opacity: 1;
+          box-shadow: 0 0 8px var(--green);
+        }
+        50% {
+          opacity: 0.5;
+          box-shadow: 0 0 2px var(--green);
+        }
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .nav-cta {
+        position: relative;
+        padding: 8px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--bg);
+        background: var(--green);
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        font-family: "JetBrains Mono", monospace;
+        transition: all 0.2s;
+        box-shadow: 0 0 20px rgba(0, 255, 135, 0.3);
+      }
+
+      .nav-cta:hover {
+        box-shadow: 0 0 40px rgba(0, 255, 135, 0.5);
+      }
+
+      /* ===================== TICKER ===================== */
+      .ticker-wrap {
+        margin-top: 57px;
+        overflow: hidden;
+        background: rgba(0, 255, 135, 0.04);
+        border-bottom: 1px solid rgba(0, 255, 135, 0.15);
+        padding: 10px 0;
+      }
+
+      .ticker-track {
+        display: flex;
+        gap: 0;
+        animation: ticker 30s linear infinite;
+        width: max-content;
+      }
+
+      .ticker-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 28px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--green);
+        white-space: nowrap;
+      }
+
+      .ticker-item::before {
+        content: "▸";
+        color: rgba(0, 255, 135, 0.4);
+      }
+
+      @keyframes ticker {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ===================== HERO ===================== */
+      .hero {
+        padding: 48px 40px 0;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .hero-top {
+        margin-bottom: 48px;
+      }
+
+      .hero-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .hero-eyebrow span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .hero-eyebrow .status-pill {
+        background: rgba(0, 255, 135, 0.1);
+        border: 1px solid rgba(0, 255, 135, 0.3);
+        color: var(--green);
+        padding: 3px 10px;
+        font-size: 10px;
+        font-family: "JetBrains Mono", monospace;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .hero-name {
+        font-size: 76px;
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -4px;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .hero-name .line1 {
+        display: block;
+        color: #fff;
+      }
+
+      .hero-name .line2 {
+        display: block;
+        position: relative;
+      }
+
+      /* Glitch effect */
+      .glitch {
+        position: relative;
+        color: transparent;
+        background: linear-gradient(90deg, var(--purple), var(--cyan));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: linear-gradient(90deg, var(--purple), var(--cyan));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .glitch::before {
+        animation: glitch1 3s infinite;
+        clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+      }
+
+      .glitch::after {
+        animation: glitch2 3s infinite;
+        clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+      }
+
+      @keyframes glitch1 {
+        0%,
+        90%,
+        100% {
+          transform: translate(0);
+          filter: none;
+        }
+        92% {
+          transform: translate(-3px, 1px);
+          filter: hue-rotate(30deg);
+        }
+        94% {
+          transform: translate(3px, -1px);
+          filter: hue-rotate(-30deg);
+        }
+        96% {
+          transform: translate(-2px, 0);
+          filter: none;
+        }
+      }
+
+      @keyframes glitch2 {
+        0%,
+        90%,
+        100% {
+          transform: translate(0);
+          filter: none;
+        }
+        93% {
+          transform: translate(3px, -1px);
+          filter: hue-rotate(-30deg);
+        }
+        95% {
+          transform: translate(-3px, 1px);
+          filter: hue-rotate(30deg);
+        }
+        97% {
+          transform: translate(1px, 0);
+          filter: none;
+        }
+      }
+
+      .hero-subtitle {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 15px;
+        color: var(--muted);
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .hero-subtitle span {
+        color: var(--cyan);
+      }
+
+      /* ===================== BENTO GRID ===================== */
+      .bento {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: auto;
+        gap: 12px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 40px 60px;
+      }
+
+      /* Animated gradient border mixin */
+      .bento-card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 24px;
+        overflow: hidden;
+        transition: border-color 0.3s;
+      }
+
+      .bento-card::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: conic-gradient(
+          from var(--angle, 0deg),
+          var(--purple),
+          var(--cyan),
+          var(--green),
+          var(--purple)
+        );
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+        border-radius: inherit;
+        animation: rotate-gradient 4s linear infinite;
+      }
+
+      @property --angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+
+      @keyframes rotate-gradient {
+        to {
+          --angle: 360deg;
+        }
+      }
+
+      .bento-card:hover::before {
+        opacity: 1;
+      }
+
+      .bento-card:hover {
+        border-color: transparent;
+      }
+
+      /* Card: Bio (wide) */
+      .card-bio {
+        grid-column: span 7;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: linear-gradient(
+          135deg,
+          rgba(179, 71, 255, 0.06) 0%,
+          rgba(0, 212, 255, 0.06) 100%
+        );
+      }
+
+      .card-bio h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      .card-bio p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 440px;
+      }
+
+      .card-bio-links {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .chip-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        padding: 6px 14px;
+        border: 1px solid var(--border-bright);
+        color: var(--text);
+        text-decoration: none;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .chip-link:hover {
+        background: var(--surface2);
+        border-color: var(--green);
+        color: var(--green);
+      }
+
+      .chip-link.primary {
+        background: var(--green);
+        color: var(--bg);
+        border-color: var(--green);
+        font-weight: 700;
+      }
+
+      .chip-link.primary:hover {
+        box-shadow: 0 0 20px rgba(0, 255, 135, 0.4);
+        color: var(--bg);
+      }
+
+      /* Card: Status */
+      .card-status {
+        grid-column: span 5;
+        min-height: 220px;
+        background: var(--bg2);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .status-header {
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-header::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        background: var(--green);
+        border-radius: 50%;
+        box-shadow: 0 0 6px var(--green);
+      }
+
+      .status-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+      }
+
+      .status-row:last-child {
+        border-bottom: none;
+      }
+
+      .status-label {
+        color: var(--muted);
+      }
+
+      .status-val {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .status-val.green {
+        color: var(--green);
+      }
+
+      .status-val.purple {
+        color: var(--purple);
+      }
+
+      .status-val.cyan {
+        color: var(--cyan);
+      }
+
+      /* Card: Stats */
+      .card-stats {
+        grid-column: span 4;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        padding: 0;
+        overflow: hidden;
+        background: var(--border);
+      }
+
+      .stat-cell {
+        background: var(--surface);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .stat-num {
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: -2px;
+        color: #fff;
+        line-height: 1;
+      }
+
+      .stat-num.green {
+        color: var(--green);
+      }
+
+      .stat-num.purple {
+        color: var(--purple);
+      }
+
+      .stat-num.cyan {
+        color: var(--cyan);
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Card: Current Project */
+      .card-current {
+        grid-column: span 5;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 255, 135, 0.05) 0%,
+          transparent 60%
+        );
+      }
+
+      .current-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+
+      .current-label .live-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--green);
+        border-radius: 50%;
+        animation: pulse-green 1.5s infinite;
+        box-shadow: 0 0 6px var(--green);
+      }
+
+      .current-project-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+
+      .current-project-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .progress-bar {
+        margin-top: 16px;
+        height: 3px;
+        background: var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 72%;
+        background: linear-gradient(90deg, var(--green), var(--cyan));
+        animation: progress-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes progress-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .progress-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 6px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* Card: Certs */
+      .card-certs {
+        grid-column: span 3;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: var(--bg2);
+      }
+
+      .cert-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        font-size: 12px;
+      }
+
+      .cert-icon {
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      .cert-name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .cert-issuer {
+        font-size: 10px;
+        color: var(--muted);
+      }
+
+      /* Card: Skills wide */
+      .card-skills {
+        grid-column: span 12;
+        padding: 20px 24px;
+      }
+
+      .skills-header {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .skills-header::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      .skills-groups {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .skill-group-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+
+      .skill-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .chip {
+        padding: 4px 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+
+      .chip:hover {
+        border-color: var(--green);
+        color: var(--green);
+        background: rgba(0, 255, 135, 0.05);
+      }
+
+      .chip.green {
+        border-color: rgba(0, 255, 135, 0.4);
+        color: var(--green);
+        background: rgba(0, 255, 135, 0.06);
+      }
+
+      .chip.purple {
+        border-color: rgba(179, 71, 255, 0.4);
+        color: var(--purple);
+        background: rgba(179, 71, 255, 0.06);
+      }
+
+      .chip.cyan {
+        border-color: rgba(0, 212, 255, 0.4);
+        color: var(--cyan);
+        background: rgba(0, 212, 255, 0.06);
+      }
+
+      /* Card: Experience */
+      .card-exp {
+        grid-column: span 8;
+      }
+
+      .exp-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+
+      .exp-company {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--cyan);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 4px;
+      }
+
+      .exp-role {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .exp-date-badge {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+
+      .exp-bullets {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .exp-bullets li {
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        gap: 10px;
+        line-height: 1.6;
+      }
+
+      .exp-bullets li::before {
+        content: "→";
+        color: var(--green);
+        flex-shrink: 0;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .exp-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+
+      .exp-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        padding: 3px 8px;
+        background: rgba(0, 212, 255, 0.08);
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        color: var(--cyan);
+      }
+
+      /* Card: CTA */
+      .card-cta {
+        grid-column: span 4;
+        background: linear-gradient(
+          135deg,
+          rgba(179, 71, 255, 0.1) 0%,
+          rgba(0, 212, 255, 0.1) 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        padding: 32px;
+      }
+
+      .cta-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -1px;
+        line-height: 1.2;
+      }
+
+      .cta-sub {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .cta-email {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: var(--green);
+        text-decoration: none;
+        border: 1px solid rgba(0, 255, 135, 0.3);
+        padding: 10px 20px;
+        width: 100%;
+        text-align: center;
+        transition: all 0.2s;
+        display: block;
+      }
+
+      .cta-email:hover {
+        background: rgba(0, 255, 135, 0.08);
+        box-shadow: 0 0 20px rgba(0, 255, 135, 0.2);
+      }
+
+      /* Section divider */
+      .section-label {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px 40px 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .section-label span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* ===================== PROJECTS STRIP ===================== */
+      .projects-strip {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 40px 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .project-card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 22px;
+        overflow: hidden;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: conic-gradient(
+          from var(--angle, 0deg),
+          var(--purple),
+          var(--cyan),
+          var(--green),
+          var(--purple)
+        );
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+        animation: rotate-gradient 4s linear infinite;
+      }
+
+      .project-card:hover::before {
+        opacity: 1;
+      }
+
+      .project-card:hover {
+        border-color: transparent;
+        transform: translateY(-2px);
+      }
+
+      .project-card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+      }
+
+      .project-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 6px;
+      }
+
+      .project-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--muted);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        padding: 2px 8px;
+        transition: all 0.2s;
+      }
+
+      .project-link:hover {
+        color: var(--green);
+        border-color: var(--green);
+      }
+
+      .project-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 14px;
+      }
+
+      .project-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .project-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        padding: 2px 8px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">
+        <span class="dot"></span>
+        srmanda@dev:~$
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">about</a></li>
+        <li><a href="#">experience</a></li>
+        <li><a href="#">projects</a></li>
+        <li><a href="#">skills</a></li>
+      </ul>
+      <a class="nav-cta" href="#">./hire-me</a>
+    </nav>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <!-- First copy -->
+        <span class="ticker-item">Kubernetes</span>
+        <span class="ticker-item">AWS EKS</span>
+        <span class="ticker-item">Terraform</span>
+        <span class="ticker-item">Go</span>
+        <span class="ticker-item">Python</span>
+        <span class="ticker-item">ArgoCD</span>
+        <span class="ticker-item">GitHub Actions</span>
+        <span class="ticker-item">Prometheus</span>
+        <span class="ticker-item">Grafana</span>
+        <span class="ticker-item">Helm</span>
+        <span class="ticker-item">Istio</span>
+        <span class="ticker-item">Pulumi</span>
+        <span class="ticker-item">GCP</span>
+        <span class="ticker-item">Datadog</span>
+        <span class="ticker-item">OpenTelemetry</span>
+        <span class="ticker-item">TypeScript</span>
+        <span class="ticker-item">PostgreSQL</span>
+        <span class="ticker-item">Redis</span>
+        <span class="ticker-item">Docker</span>
+        <span class="ticker-item">HCL</span>
+        <!-- Second copy (for seamless loop) -->
+        <span class="ticker-item">Kubernetes</span>
+        <span class="ticker-item">AWS EKS</span>
+        <span class="ticker-item">Terraform</span>
+        <span class="ticker-item">Go</span>
+        <span class="ticker-item">Python</span>
+        <span class="ticker-item">ArgoCD</span>
+        <span class="ticker-item">GitHub Actions</span>
+        <span class="ticker-item">Prometheus</span>
+        <span class="ticker-item">Grafana</span>
+        <span class="ticker-item">Helm</span>
+        <span class="ticker-item">Istio</span>
+        <span class="ticker-item">Pulumi</span>
+        <span class="ticker-item">GCP</span>
+        <span class="ticker-item">Datadog</span>
+        <span class="ticker-item">OpenTelemetry</span>
+        <span class="ticker-item">TypeScript</span>
+        <span class="ticker-item">PostgreSQL</span>
+        <span class="ticker-item">Redis</span>
+        <span class="ticker-item">Docker</span>
+        <span class="ticker-item">HCL</span>
+      </div>
+    </div>
+
+    <!-- HERO NAME -->
+    <div class="hero">
+      <div class="hero-top">
+        <div class="hero-eyebrow">
+          <span>Staff Engineer · DevOps · Cloud Native</span>
+          <div class="status-pill">
+            <span
+              style="
+                width: 5px;
+                height: 5px;
+                background: var(--green);
+                border-radius: 50%;
+                display: inline-block;
+                box-shadow: 0 0 4px var(--green);
+              "
+            ></span>
+            Available for Work
+          </div>
+        </div>
+        <div class="hero-name">
+          <span class="line1">Alex</span>
+          <span class="line2"
+            ><span class="glitch" data-text="Manda">Manda</span></span
+          >
+        </div>
+        <div class="hero-subtitle">
+          <span>Building platforms that ship at</span>
+          <span>// warp speed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BENTO GRID -->
+    <div class="bento">
+      <!-- Bio card -->
+      <div class="bento-card card-bio">
+        <div>
+          <h2>Platform Engineer obsessed with<br />developer experience.</h2>
+          <p>
+            I design and operate cloud-native infrastructure that makes
+            engineering teams 10x faster. From multi-region Kubernetes platforms
+            to zero-downtime CI/CD — I build the systems that others build on
+            top of.
+          </p>
+        </div>
+        <div class="card-bio-links">
+          <a href="#" class="chip-link primary">↓ Resume.pdf</a>
+          <a href="#" class="chip-link">⌥ GitHub</a>
+          <a href="#" class="chip-link">⌥ LinkedIn</a>
+          <a href="#" class="chip-link">⌥ Blog</a>
+        </div>
+      </div>
+
+      <!-- System status card -->
+      <div class="bento-card card-status">
+        <div class="status-header">system.status</div>
+        <div class="status-row">
+          <span class="status-label">location</span>
+          <span class="status-val">Remote · EST</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">cloud_region</span>
+          <span class="status-val cyan">us-east-1</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">k8s_clusters</span>
+          <span class="status-val green">12 · healthy</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">ci_pipelines</span>
+          <span class="status-val green">all green ✓</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">hire_status</span>
+          <span class="status-val purple">OPEN</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">response_time</span>
+          <span class="status-val">&lt; 24h</span>
+        </div>
+      </div>
+
+      <!-- Stats card -->
+      <div class="bento-card card-stats">
+        <div class="stat-cell">
+          <div class="stat-num green">8+</div>
+          <div class="stat-label">yrs exp</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num purple">50+</div>
+          <div class="stat-label">services</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num cyan">3</div>
+          <div class="stat-label">cloud certs</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">40%</div>
+          <div class="stat-label">cost↓ saved</div>
+        </div>
+      </div>
+
+      <!-- Current project -->
+      <div class="bento-card card-current">
+        <div class="current-label">
+          <span class="live-dot"></span>
+          currently shipping
+        </div>
+        <div class="current-project-title">Internal Developer Platform v3</div>
+        <div class="current-project-desc">
+          Self-service K8s platform with automated environment provisioning,
+          GitOps workflows, and real-time cost attribution.
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <div class="progress-label">
+          <span>progress</span>
+          <span style="color: var(--green)">72%</span>
+        </div>
+      </div>
+
+      <!-- Certs card -->
+      <div class="bento-card card-certs">
+        <div class="status-header">certifications</div>
+        <div class="cert-item">
+          <span class="cert-icon">☁️</span>
+          <div>
+            <div class="cert-name">AWS SAA</div>
+            <div class="cert-issuer">Solutions Architect Associate</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <span class="cert-icon">⚙️</span>
+          <div>
+            <div class="cert-name">CKA</div>
+            <div class="cert-issuer">Certified Kubernetes Admin</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <span class="cert-icon">🌐</span>
+          <div>
+            <div class="cert-name">GCP ACE</div>
+            <div class="cert-issuer">Associate Cloud Engineer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills wide -->
+      <div class="bento-card card-skills">
+        <div class="skills-header">skill_matrix.yaml</div>
+        <div class="skills-groups">
+          <div>
+            <div class="skill-group-label">languages</div>
+            <div class="skill-chips">
+              <span class="chip green">Go</span>
+              <span class="chip green">Python</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">Bash</span>
+              <span class="chip">HCL</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">cloud & iac</div>
+            <div class="skill-chips">
+              <span class="chip cyan">AWS</span>
+              <span class="chip cyan">GCP</span>
+              <span class="chip cyan">Azure</span>
+              <span class="chip">Terraform</span>
+              <span class="chip">Pulumi</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">containers & orchestration</div>
+            <div class="skill-chips">
+              <span class="chip purple">Kubernetes</span>
+              <span class="chip purple">Helm</span>
+              <span class="chip purple">Istio</span>
+              <span class="chip">Docker</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">ci/cd & gitops</div>
+            <div class="skill-chips">
+              <span class="chip">GitHub Actions</span>
+              <span class="chip">ArgoCD</span>
+              <span class="chip">Jenkins</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">observability</div>
+            <div class="skill-chips">
+              <span class="chip">Prometheus</span>
+              <span class="chip">Grafana</span>
+              <span class="chip">Datadog</span>
+              <span class="chip">OTel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience card -->
+      <div class="bento-card card-exp">
+        <div class="exp-header-row">
+          <div>
+            <div class="exp-company">Acme Corp · Remote</div>
+            <div class="exp-role">Staff Platform Engineer</div>
+          </div>
+          <div class="exp-date-badge">2022 — Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>
+            Designed and shipped a self-service Kubernetes platform now used by
+            200+ engineers daily
+          </li>
+          <li>
+            Reduced infrastructure costs by 40% via spot instance orchestration
+            and intelligent auto-scaling on AWS EKS
+          </li>
+          <li>
+            Led org-wide migration from Jenkins to GitHub Actions, cutting
+            pipeline times by 60%
+          </li>
+          <li>
+            Implemented zero-trust networking with Istio service mesh across 15
+            production microservices
+          </li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Kubernetes</span>
+          <span class="exp-tag">AWS EKS</span>
+          <span class="exp-tag">Terraform</span>
+          <span class="exp-tag">GitHub Actions</span>
+          <span class="exp-tag">Istio</span>
+          <span class="exp-tag">ArgoCD</span>
+        </div>
+      </div>
+
+      <!-- CTA card -->
+      <div class="bento-card card-cta">
+        <div class="cta-title">Let's build<br />something<br />remarkable.</div>
+        <div class="cta-sub">
+          Open to staff/principal engineering roles and platform consulting.
+        </div>
+        <a href="mailto:hey@srmanda.dev" class="cta-email">→ hey@srmanda.dev</a>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section-label">
+      <span>featured_projects.yaml</span>
+    </div>
+
+    <div class="projects-strip">
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-name">k8s-cost-exporter</div>
+          <div class="project-links">
+            <a href="#" class="project-link">GH</a>
+            <a href="#" class="project-link">↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Prometheus exporter that attributes Kubernetes costs per namespace,
+          team, and workload. Used by 3 companies in production.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Go</span>
+          <span class="project-tag">Prometheus</span>
+          <span class="project-tag">Kubernetes</span>
+          <span class="project-tag">Helm</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-name">terraform-aws-platform</div>
+          <div class="project-links">
+            <a href="#" class="project-link">GH</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Production-ready Terraform module for AWS multi-account landing zone
+          with network segmentation, SSO, and guardrails.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">AWS</span>
+          <span class="project-tag">HCL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-name">gitops-bootstrap</div>
+          <div class="project-links">
+            <a href="#" class="project-link">GH</a>
+            <a href="#" class="project-link">↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Opinionated ArgoCD + Helm bootstrapper for greenfield Kubernetes
+          clusters. Spins up full observability stack in 5 minutes.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">ArgoCD</span>
+          <span class="project-tag">Helm</span>
+          <span class="project-tag">Kubernetes</span>
+          <span class="project-tag">Bash</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

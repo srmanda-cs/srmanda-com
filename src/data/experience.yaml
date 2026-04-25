@@ -1,0 +1,67 @@
+roles:
+  - company: UNC RDMC
+    company_full: UNC Research Data Management Core
+    title: Cloud Infrastructure Engineer (Graduate Fellow)
+    location: Chapel Hill, NC
+    start: 2023
+    end: Present
+    current: true
+    bullets:
+      - Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt
+      - Ut labore et dolore magna aliqua, reducing infrastructure overhead by XX% via cloud optimization
+      - Enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip
+      - Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    tags:
+      - AWS
+      - Terraform
+      - Kubernetes
+      - Python
+
+  - company: Placeholder Corp
+    company_full: Placeholder Corporation
+    title: Software Engineer
+    location: Remote
+    start: 2022
+    end: 2023
+    current: false
+    bullets:
+      - Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt
+      - Ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation
+      - Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+    tags:
+      - Python
+      - Docker
+      - PostgreSQL
+      - GitHub Actions
+
+  - company: Placeholder Labs
+    company_full: Placeholder Labs Inc.
+    title: Junior DevOps Engineer
+    location: New York, NY
+    start: 2021
+    end: 2022
+    current: false
+    bullets:
+      - Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor
+      - Ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud
+      - Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+    tags:
+      - Jenkins
+      - Ansible
+      - Linux
+      - Bash
+
+  - company: Placeholder University
+    company_full: Placeholder University Research Lab
+    title: Research Assistant — Infrastructure
+    location: Chapel Hill, NC
+    start: 2020
+    end: 2021
+    current: false
+    bullets:
+      - Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod
+      - Ut labore et dolore magna aliqua ut enim ad minim veniam quis
+    tags:
+      - Python
+      - Linux
+      - HPC

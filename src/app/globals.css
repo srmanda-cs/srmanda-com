@@ -1,26 +1,499 @@
 @import "tailwindcss";
 
+/* ============================================================
+   DESIGN TOKENS — v4
+   Reference: Linear.app, Vercel, adithyakrishnan.com
+   One accent. Opacity text scale. Let it breathe.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0a0c;
+  --bg-raised: #111114;
+  --bg-card: #141417;
+
+  /* Single accent — violet. Used ≤5 times total on the page. */
+  --accent: #6d62f0;
+  --accent-soft: rgba(109, 98, 240, 0.12);
+  --accent-border: rgba(109, 98, 240, 0.25);
+
+  /* Functional greens — live status only */
+  --live: #22c55e;
+  --live-soft: rgba(34, 197, 94, 0.1);
+  --live-border: rgba(34, 197, 94, 0.2);
+
+  /* Text — opacity scale on a single warm near-white */
+  --t1: #f5f5f5; /* primary: names, headings */
+  --t2: rgba(245, 245, 245, 0.65); /* secondary: body copy, descriptions */
+  --t3: rgba(245, 245, 245, 0.38); /* tertiary: labels, dates, metadata */
+  --t4: rgba(245, 245, 245, 0.2); /* quaternary: decorative, dividers */
+
+  /* Borders */
+  --b1: rgba(255, 255, 255, 0.06); /* default card border */
+  --b2: rgba(255, 255, 255, 0.12); /* hover / active state */
+
+  /* Layout */
+  --nav-h: 52px;
+  --page-max: 720px; /* single comfortable reading column */
+  --page-pad: 24px; /* horizontal page padding */
+  --section-gap: 80px; /* generous breathing room between sections */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 32px);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  font-family:
+    var(--font-sans),
+    "Atkinson Hyperlegible",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Mono class — only for machine-text: dates, labels, tags, code */
+.mono {
+  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Very subtle film grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.page-col {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  background: rgba(10, 10, 12, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--b1);
+}
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--live-border);
+  border-bottom: 1px solid var(--live-border);
+  background: var(--live-soft);
+  padding: 10px 0;
+  margin-top: var(--nav-h);
+}
+
+.ticker-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  animation: ticker 42s linear infinite;
+  will-change: transform;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  padding: 64px var(--page-pad) 0;
+  max-width: var(--page-max);
+  margin: 0 auto;
+}
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+.divider {
+  height: 1px;
+  background: var(--b1);
+  max-width: var(--page-max);
+  margin: 0 auto;
+}
+
+/* ============================================================
+   SECTION
+   ============================================================ */
+.section {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--page-pad) 0;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.section-label-text {
+  font-size: 11px;
+  color: var(--t3);
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  white-space: nowrap;
+}
+
+.section-label-line {
+  flex: 1;
+  height: 1px;
+  background: var(--b1);
+}
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--b1);
+  padding: 20px 22px;
+  transition: border-color 0.18s ease;
+}
+
+.card:hover {
+  border-color: var(--b2);
+}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--b1);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -20px;
+  top: 7px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+  border: 1.5px solid var(--b2);
+  z-index: 1;
+}
+
+.timeline-dot.live {
+  background: var(--live);
+  border-color: var(--live);
+  box-shadow: 0 0 0 3px var(--live-soft);
+  animation: live-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px var(--live-soft);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.05);
+  }
+}
+
+/* ============================================================
+   SKILLS INLINE (tags embedded in experience/project cards)
+   ============================================================ */
+.skill-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border: 1px solid var(--b1);
+  color: var(--t3);
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   PROJECT CAROUSEL
+   ============================================================ */
+.carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  flex: 0 0 calc(92% - 6px);
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+@media (min-width: 560px) {
+  .carousel-item {
+    flex: 0 0 calc(72% - 6px);
+  }
+}
+
+@media (min-width: 900px) {
+  .carousel-item {
+    flex: 0 0 calc(50% - 6px);
+  }
+}
+
+/* ============================================================
+   EDU GRID — side by side on wide screens
+   ============================================================ */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 640px) {
+  .edu-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* ============================================================
+   GLITCH + GLASS SHARDS on hero name
+   ============================================================ */
+@keyframes glitch-base {
+  0%,
+  87%,
+  100% {
+    transform: translate(0, 0) skewX(0);
+    opacity: 1;
+  }
+  88% {
+    transform: translate(-3px, 1px) skewX(-1deg);
+    opacity: 0.92;
+  }
+  90% {
+    transform: translate(4px, -2px) skewX(1.5deg);
+    opacity: 0.95;
+  }
+  93% {
+    transform: translate(0, 0) skewX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes shard-a {
+  0%,
+  87%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  88%,
+  89% {
+    transform: translate(-6px, -2px) skewX(-2deg);
+    opacity: 0.8;
+    filter: hue-rotate(40deg) brightness(1.3);
+  }
+  91% {
+    transform: translate(4px, 2px);
+    opacity: 0.4;
+  }
+  93% {
+    opacity: 0;
+  }
+}
+
+@keyframes shard-b {
+  0%,
+  87%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  89%,
+  90% {
+    transform: translate(7px, 2px) skewX(2deg);
+    opacity: 0.75;
+    filter: hue-rotate(-50deg) brightness(1.5);
+  }
+  92% {
+    transform: translate(-3px, -2px);
+    opacity: 0.3;
+  }
+  94% {
+    opacity: 0;
+  }
+}
+
+@keyframes shard-c {
+  0%,
+  88%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  89% {
+    opacity: 1;
+  }
+  90%,
+  91% {
+    transform: translate(5px, 4px) scaleX(1.02);
+    opacity: 0.65;
+    filter: hue-rotate(110deg) brightness(1.6);
+  }
+  93% {
+    opacity: 0;
+  }
+}
+
+.glitch-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-base {
+  display: inline-block;
+  animation: glitch-base 6s ease-in-out infinite;
+}
+
+.glitch-shard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
+  background: linear-gradient(90deg, var(--accent), #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glitch-shard-a {
+  clip-path: polygon(0 0, 100% 0, 88% 36%, 8% 32%);
+  animation: shard-a 6s ease-in-out infinite;
+}
+
+.glitch-shard-b {
+  clip-path: polygon(12% 40%, 92% 36%, 100% 100%, 0 100%);
+  animation: shard-b 6s ease-in-out infinite;
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.glitch-shard-c {
+  clip-path: polygon(22% 18%, 78% 22%, 72% 72%, 28% 68%);
+  animation: shard-c 6s ease-in-out infinite;
+  background: linear-gradient(135deg, var(--accent), #c084fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+@keyframes progress-shine {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes pulse-live {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 6px var(--live);
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 2px var(--live);
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Option B — Clean Modern Minimal</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #fafafa;
+        --surface: #ffffff;
+        --primary: #0f172a;
+        --accent: #3b82f6;
+        --accent2: #06b6d4;
+        --text: #1e293b;
+        --muted: #64748b;
+        --border: #e2e8f0;
+        --tag-bg: #f1f5f9;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+        line-height: 1.6;
+      }
+
+      /* Nav */
+      nav {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav-logo {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+      .nav-logo span {
+        color: var(--accent);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      /* Hero */
+      .hero {
+        padding: 96px 48px 80px;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #eff6ff;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        border: 1px solid #bfdbfe;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .hero h1 {
+        font-size: 52px;
+        font-weight: 800;
+        color: var(--primary);
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+      }
+      .hero h1 span {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-sub {
+        font-size: 20px;
+        color: var(--muted);
+        margin-bottom: 32px;
+        max-width: 500px;
+        line-height: 1.5;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .btn-primary:hover {
+        background: #1e3a5f;
+      }
+      .btn-ghost {
+        color: var(--muted);
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        transition: all 0.2s;
+      }
+      .btn-ghost:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .hero-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 56px;
+        padding-top: 40px;
+        border-top: 1px solid var(--border);
+      }
+      .stat-num {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -1px;
+      }
+      .stat-label {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* Section */
+      .section {
+        padding: 64px 48px;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .section-tag {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+      .section h2 {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -1px;
+        margin-bottom: 40px;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 0;
+      }
+
+      /* Skills */
+      .skill-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .skill-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      .skill-card h3 {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+      }
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        background: var(--tag-bg);
+        color: var(--text);
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      /* Experience */
+      .exp-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .exp-item {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 32px;
+        padding: 28px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .exp-meta {
+      }
+      .exp-dates {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .exp-company {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+      .exp-role {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+      .exp-desc {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .exp-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .exp-tag {
+        background: #eff6ff;
+        color: var(--accent);
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        color: var(--muted);
+        font-size: 13px;
+        border-top: 1px solid var(--border);
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">Alex<span>.</span></div>
+      <ul class="nav-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Experience</a></li>
+        <li><a href="#">Skills</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#" style="color: var(--accent)">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-badge">⚡ Open to Opportunities</div>
+      <h1>Building <span>Cloud-Native</span><br />Infrastructure at Scale</h1>
+      <p class="hero-sub">
+        Staff Platform Engineer specializing in Kubernetes, AWS, and developer
+        experience. I make infrastructure disappear so teams can ship faster.
+      </p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#">Download Resume</a>
+        <a class="btn-ghost" href="#">GitHub →</a>
+        <a class="btn-ghost" href="#">LinkedIn →</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div>
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Services Deployed</div>
+        </div>
+        <div>
+          <div class="stat-num">AWS</div>
+          <div class="stat-label">Solutions Architect</div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="section">
+      <div class="section-tag">Expertise</div>
+      <h2>Technical Skills</h2>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h3>Languages</h3>
+          <div class="skill-tags">
+            <span class="tag">Go</span><span class="tag">Python</span
+            ><span class="tag">TypeScript</span><span class="tag">Bash</span
+            ><span class="tag">HCL</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Cloud & IaC</h3>
+          <div class="skill-tags">
+            <span class="tag">AWS</span><span class="tag">GCP</span
+            ><span class="tag">Terraform</span><span class="tag">Pulumi</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Containers & Orchestration</h3>
+          <div class="skill-tags">
+            <span class="tag">Kubernetes</span><span class="tag">Helm</span
+            ><span class="tag">Istio</span><span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>CI/CD</h3>
+          <div class="skill-tags">
+            <span class="tag">GitHub Actions</span
+            ><span class="tag">ArgoCD</span><span class="tag">Jenkins</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Observability</h3>
+          <div class="skill-tags">
+            <span class="tag">Prometheus</span><span class="tag">Grafana</span
+            ><span class="tag">Datadog</span
+            ><span class="tag">OpenTelemetry</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Databases</h3>
+          <div class="skill-tags">
+            <span class="tag">PostgreSQL</span><span class="tag">Redis</span
+            ><span class="tag">DynamoDB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="section">
+      <div class="section-tag">Career</div>
+      <h2>Experience</h2>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-dates">2022 — Present</div>
+            <div class="exp-company">Acme Corp</div>
+          </div>
+          <div>
+            <div class="exp-role">Staff Platform Engineer</div>
+            <div class="exp-desc">
+              Designed and shipped a self-service Kubernetes platform serving
+              200+ engineers. Reduced infrastructure costs by 40% via spot
+              instance orchestration on AWS EKS.
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">Kubernetes</span
+              ><span class="exp-tag">AWS EKS</span
+              ><span class="exp-tag">Terraform</span
+              ><span class="exp-tag">GitHub Actions</span>
+            </div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-dates">2019 — 2022</div>
+            <div class="exp-company">Cloud Startup Inc</div>
+          </div>
+          <div>
+            <div class="exp-role">Senior DevOps Engineer</div>
+            <div class="exp-desc">
+              Built multi-region Terraform modules for AWS landing zone.
+              Implemented GitOps with ArgoCD and Helm for 15 microservices.
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">ArgoCD</span
+              ><span class="exp-tag">Helm</span
+              ><span class="exp-tag">Terraform</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Built with Next.js & YAML · Alex Manda · 2026</footer>
+  </body>
+</html>
