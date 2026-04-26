@@ -1,127 +1,71 @@
 import type { Profile } from "@/types";
+import SectionHeader from "./SectionHeader";
+import MagneticButton from "./MagneticButton";
+import ContactForm from "./ContactForm";
+import SocialIcons from "./SocialIcons";
 
 export default function Contact({ profile }: { profile: Profile }) {
+  const email = profile.social?.email;
   return (
     <section
-      className="section"
+      className="section contact-section"
       id="contact"
-      style={{ paddingBottom: "100px" }}
+      style={
+        {
+          "--section-accent": "var(--aurora-violet)",
+          "--section-accent-soft": "rgba(109, 98, 240, 0.22)",
+        } as React.CSSProperties
+      }
     >
-      <div
-        style={{
-          borderTop: "1px solid var(--b1)",
-          paddingTop: "64px",
-        }}
-      >
-        <p
-          className="mono"
-          style={{
-            fontSize: "11px",
-            color: "var(--t3)",
-            textTransform: "uppercase",
-            letterSpacing: "2.5px",
-            marginBottom: "20px",
-          }}
-        >
-          contact
-        </p>
+      <div className="contact-wash" aria-hidden />
 
-        <h2
-          style={{
-            fontSize: "clamp(28px, 5vw, 44px)",
-            fontWeight: 700,
-            color: "var(--t1)",
-            letterSpacing: "-1.5px",
-            lineHeight: 1.15,
-            marginBottom: "16px",
-          }}
-        >
-          {"Let's build something "}
-          <span
-            style={{
-              background: "linear-gradient(90deg, var(--accent), #38bdf8)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            remarkable.
-          </span>
-        </h2>
+      <SectionHeader number="05" label="contact" tag="get in touch" />
 
-        <p
-          style={{
-            fontSize: "17px",
-            color: "var(--t2)",
-            lineHeight: 1.7,
-            maxWidth: "440px",
-            marginBottom: "32px",
-          }}
-        >
-          Open to new roles, collaborations, and interesting problems.
-          {profile.company && ` Currently at ${profile.company}.`}
-        </p>
+      <h2 className="contact-headline">
+        {"Let's build something "}
+        <span className="contact-headline-gradient">remarkable.</span>
+      </h2>
 
-        {profile.social?.email && (
-          <a
-            href={`mailto:${profile.social.email}`}
-            className="mono"
-            style={{
-              display: "inline-block",
-              fontSize: "15px",
-              color: "var(--t1)",
-              textDecoration: "none",
-              border: "1px solid var(--b2)",
-              padding: "12px 28px",
-              marginBottom: "24px",
-              transition: "border-color 0.15s",
-            }}
-          >
-            → {profile.social.email}
-          </a>
-        )}
+      <p className="contact-lede">
+        Open to new roles, collaborations, and interesting problems.
+        {profile.company && ` Currently at ${profile.company}.`} The fastest
+        way to reach me is the form below — it lands directly in my inbox.
+      </p>
 
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {profile.social?.github && (
-            <SLink href={profile.social.github} label="GitHub" />
-          )}
-          {profile.social?.linkedin && (
-            <SLink href={profile.social.linkedin} label="LinkedIn" />
-          )}
-          {profile.social?.staff_directory && (
-            <SLink
-              href={profile.social.staff_directory}
-              label="Staff Directory"
-            />
-          )}
-          {profile.social?.leetcode && (
-            <SLink href={profile.social.leetcode} label="LeetCode" />
-          )}
-          {profile.social?.zulip && (
-            <SLink href={profile.social.zulip} label="Zulip" />
+      <div className="contact-grid">
+        <div className="contact-form-wrap">
+          {email ? (
+            <ContactForm toEmail={email} />
+          ) : (
+            <p className="mono" style={{ color: "var(--t3)", fontSize: "12px" }}>
+              email not configured
+            </p>
           )}
         </div>
+
+        <aside className="contact-sidebar">
+          <div className="contact-sidebar-block">
+            <p className="mono contact-sidebar-label">or, direct</p>
+            {email && (
+              <MagneticButton href={`mailto:${email}`}>
+                <span style={{ color: "var(--t1)" }}>{email}</span>
+                <span className="magnetic-arrow" aria-hidden>
+                  →
+                </span>
+              </MagneticButton>
+            )}
+          </div>
+
+          <div className="contact-sidebar-block contact-sidebar-block-grow">
+            <p className="mono contact-sidebar-label">find me elsewhere</p>
+            <SocialIcons
+              profile={profile}
+              layout="column"
+              only={["github", "linkedin", "zulip"]}
+            />
+          </div>
+        </aside>
       </div>
     </section>
-  );
-}
-
-function SLink({ href, label }: { href: string; label: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="mono"
-      style={{
-        fontSize: "12px",
-        color: "var(--t3)",
-        textDecoration: "none",
-        border: "1px solid var(--b1)",
-        padding: "5px 12px",
-      }}
-    >
-      {label}
-    </a>
   );
 }

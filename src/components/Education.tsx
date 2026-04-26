@@ -1,4 +1,5 @@
-import type { Education } from "@/types";
+import type { Education, Degree, Certification } from "@/types";
+import SectionHeader from "./SectionHeader";
 
 export default function EducationSection({
   education,
@@ -6,147 +7,81 @@ export default function EducationSection({
   education: Education;
 }) {
   return (
-    <section className="section" id="education">
-      <div className="section-label">
-        <span className="section-label-text mono">
-          education &amp; certifications
-        </span>
-        <div className="section-label-line" />
-      </div>
+    <section
+      className="section"
+      id="education"
+      style={
+        {
+          "--section-accent": "var(--aurora-cyan)",
+          "--section-accent-soft": "rgba(6, 182, 212, 0.22)",
+        } as React.CSSProperties
+      }
+    >
+      <SectionHeader
+        number="05"
+        label="education"
+        tag="degrees & certifications"
+      />
 
-      <div className="edu-grid">
-        {/* Degrees */}
-        <div>
-          <p
-            className="mono"
-            style={{
-              fontSize: "10px",
-              color: "var(--t3)",
-              textTransform: "uppercase",
-              letterSpacing: "1.5px",
-              marginBottom: "12px",
-            }}
-          >
-            degrees
-          </p>
-          <div className="timeline">
+      <div className="edu-columns">
+        <div className="edu-column">
+          <h3 className="edu-column-label mono">degrees</h3>
+          <div className="edu-stack">
             {education.degrees.map((d) => (
-              <div key={`${d.school}-${d.start}`} className="timeline-item">
-                <div className={`timeline-dot${d.current ? " live" : ""}`} />
-                <div className="card">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
-                      gap: "10px",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <div>
-                      <p
-                        className="mono"
-                        style={{
-                          fontSize: "10px",
-                          color: "var(--accent)",
-                          textTransform: "uppercase",
-                          letterSpacing: "1px",
-                          marginBottom: "3px",
-                        }}
-                      >
-                        {d.degree}
-                      </p>
-                      <p
-                        style={{
-                          fontSize: "15px",
-                          fontWeight: 700,
-                          color: "var(--t1)",
-                          marginBottom: "2px",
-                        }}
-                      >
-                        {d.field}
-                      </p>
-                      <p style={{ fontSize: "13px", color: "var(--t2)" }}>
-                        {d.school}
-                      </p>
-                    </div>
-                    <span
-                      className="mono"
-                      style={{
-                        fontSize: "11px",
-                        color: "var(--t3)",
-                        border: "1px solid var(--b1)",
-                        padding: "2px 7px",
-                        whiteSpace: "nowrap",
-                        flexShrink: 0,
-                      }}
-                    >
-                      {d.start} — {d.end}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <DegreeCard key={`${d.school}-${d.start}`} d={d} />
             ))}
           </div>
         </div>
 
-        {/* Certifications */}
-        <div id="certifications">
-          <p
-            className="mono"
-            style={{
-              fontSize: "10px",
-              color: "var(--t3)",
-              textTransform: "uppercase",
-              letterSpacing: "1.5px",
-              marginBottom: "12px",
-            }}
-          >
-            certifications
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div className="edu-column" id="certifications">
+          <h3 className="edu-column-label mono">certifications</h3>
+          <div className="edu-stack">
             {education.certifications.map((c) => (
-              <div
-                key={c.short}
-                className="card"
-                style={{ display: "flex", alignItems: "center", gap: "14px" }}
-              >
-                <span style={{ fontSize: "18px", flexShrink: 0 }}>
-                  {c.icon}
-                </span>
-                <div>
-                  <p
-                    className="mono"
-                    style={{
-                      fontSize: "13px",
-                      fontWeight: 700,
-                      color: "var(--t1)",
-                      marginBottom: "2px",
-                    }}
-                  >
-                    {c.short}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "13px",
-                      color: "var(--t2)",
-                      marginBottom: "1px",
-                    }}
-                  >
-                    {c.name}
-                  </p>
-                  <p
-                    className="mono"
-                    style={{ fontSize: "11px", color: "var(--t3)" }}
-                  >
-                    {c.issuer} &middot; {c.year}
-                  </p>
-                </div>
-              </div>
+              <CertCard key={c.short} c={c} />
             ))}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function DegreeCard({ d }: { d: Degree }) {
+  return (
+    <div className={`card-glass edu-card${d.current ? " is-live" : ""}`}>
+      <div className="edu-card-meta">
+        <span className="mono edu-card-kicker">{d.degree}</span>
+        <span className="mono edu-card-dates">
+          {d.start} — {d.end}
+        </span>
+      </div>
+      <div className="edu-card-body">
+        <p className="edu-card-title">{d.field}</p>
+        <p className="edu-card-sub">{d.school}</p>
+      </div>
+      {d.current && (
+        <span className="edu-card-status mono">
+          <span className="edu-card-status-dot" aria-hidden /> in progress
+        </span>
+      )}
+    </div>
+  );
+}
+
+function CertCard({ c }: { c: Certification }) {
+  return (
+    <div className="card-glass edu-card">
+      <div className="edu-card-meta">
+        <span className="edu-card-icon" aria-hidden>
+          {c.icon}
+        </span>
+        <span className="mono edu-card-dates">{c.year}</span>
+      </div>
+      <div className="edu-card-body">
+        <p className="edu-card-title">{c.short}</p>
+        <p className="edu-card-sub">{c.name}</p>
+        <p className="mono edu-card-issuer">{c.issuer}</p>
+      </div>
+    </div>
   );
 }

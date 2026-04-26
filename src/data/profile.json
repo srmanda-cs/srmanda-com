@@ -8,13 +8,13 @@
   "location": "Chapel Hill, NC",
   "timezone": "EST",
   "status": "Available for Work",
-  "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. I design and operate cloud-native infrastructure that makes engineering teams move faster and ship with confidence. From multi-region Kubernetes platforms to zero-downtime CI/CD, I build the systems others build on top of.",
+  "bio": "I design and operate cloud-native infrastructure that makes engineering teams move faster and ship with confidence. From multi-region Kubernetes platforms to zero-downtime CI/CD, I build the systems others build on top of.",
   "social": {
-    "github": "",
-    "linkedin": "",
-    "staff_directory": "",
-    "leetcode": "",
-    "zulip": "",
-    "email": ""
+    "github": "https://github.com/srmanda-cs",
+    "linkedin": "https://www.linkedin.com/in/srmanda-cs/",
+    "staff_directory": "https://researchdata.unc.edu/about/staff/ashm/",
+    "leetcode": "https://leetcode.com/u/srmanda/",
+    "zulip": "https://dataverse.zulipchat.com/#user/1034135",
+    "email": "srmanda.cs@gmail.com"
   }
 }

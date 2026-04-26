@@ -1,96 +1,51 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type { Profile } from "@/types";
 
 const LINKS = [
-  { href: "#about", label: "about" },
+  { href: "#about-detail", label: "about" },
   { href: "#experience", label: "experience" },
   { href: "#projects", label: "projects" },
-  { href: "#education", label: "education" },
+  { href: "#certifications", label: "certs" },
   { href: "#contact", label: "contact" },
 ];
 
 export default function Nav({ profile }: { profile: Profile }) {
+  const [shrunk, setShrunk] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShrunk(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="nav">
-      <div
-        className="page-col"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-          gap: "16px",
-        }}
-      >
-        <a
-          href="#about"
-          className="mono"
-          style={{
-            fontSize: "13px",
-            color: "var(--live)",
-            textDecoration: "none",
-            fontWeight: 700,
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            flexShrink: 0,
-          }}
-        >
-          <span
-            style={{
-              width: "7px",
-              height: "7px",
-              borderRadius: "50%",
-              background: "var(--live)",
-              boxShadow: "0 0 0 3px var(--live-soft)",
-              animation: "live-pulse 2.5s ease-in-out infinite",
-              flexShrink: 0,
-            }}
-          />
-          {profile.first_name.toLowerCase()}
+    <nav className={`nav${shrunk ? " nav-shrunk" : ""}`}>
+      <div className="nav-inner">
+        <a href="#about" className="nav-logo mono">
+          <span className="nav-logo-dot" aria-hidden />
+          <span className="nav-logo-name">{profile.first_name.toLowerCase()}</span>
+          <span className="nav-logo-sep" aria-hidden>/</span>
+          <span className="nav-logo-role">{profile.title.toLowerCase()}</span>
         </a>
 
-        <ul
-          style={{
-            display: "flex",
-            gap: "20px",
-            listStyle: "none",
-            flexWrap: "wrap",
-          }}
-        >
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="mono"
-                style={{
-                  color: "var(--t3)",
-                  textDecoration: "none",
-                  fontSize: "12px",
-                  letterSpacing: "0.3px",
-                }}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <a
-          href="#contact"
-          className="mono"
-          style={{
-            fontSize: "12px",
-            fontWeight: 700,
-            color: "var(--bg)",
-            background: "var(--live)",
-            padding: "6px 14px",
-            textDecoration: "none",
-            flexShrink: 0,
-            letterSpacing: "0.2px",
-          }}
-        >
-          hire me
-        </a>
+        <div className="nav-cluster">
+          <ul className="nav-links">
+            {LINKS.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} className="nav-link mono">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href="#contact" className="nav-cta mono" aria-label="Hire me — jump to contact">
+            <span aria-hidden>→</span>
+            <span>hire me</span>
+          </a>
+        </div>
       </div>
     </nav>
   );

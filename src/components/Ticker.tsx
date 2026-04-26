@@ -12,9 +12,11 @@ export default function Ticker({ phrases }: { phrases: string[] }) {
               alignItems: "center",
               gap: "10px",
               padding: "0 36px",
-              fontSize: "12px",
+              fontSize: "11.5px",
               color: "var(--live)",
+              opacity: 0.72,
               whiteSpace: "nowrap",
+              letterSpacing: "0.5px",
             }}
           >
             <span
@@ -23,7 +25,7 @@ export default function Ticker({ phrases }: { phrases: string[] }) {
                 height: "3px",
                 borderRadius: "50%",
                 background: "var(--live)",
-                opacity: 0.6,
+                opacity: 0.55,
                 flexShrink: 0,
               }}
             />

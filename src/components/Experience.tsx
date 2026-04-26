@@ -1,4 +1,5 @@
 import type { Experience } from "@/types";
+import SectionHeader from "./SectionHeader";
 
 export default function ExperienceSection({
   experience,
@@ -6,48 +7,56 @@ export default function ExperienceSection({
   experience: Experience;
 }) {
   return (
-    <section className="section" id="experience">
-      <div className="section-label">
-        <span className="section-label-text mono">experience</span>
-        <div className="section-label-line" />
-      </div>
+    <section
+      className="section"
+      id="experience"
+      style={
+        {
+          "--section-accent": "var(--aurora-violet)",
+          "--section-accent-soft": "rgba(109, 98, 240, 0.20)",
+        } as React.CSSProperties
+      }
+    >
+      <SectionHeader number="03" label="experience" tag="where i've been" />
 
       <div className="timeline">
         {experience.roles.map((role) => (
           <div key={`${role.company}-${role.start}`} className="timeline-item">
             <div className={`timeline-dot${role.current ? " live" : ""}`} />
 
-            <div className="card">
+            <div className="card-glass">
               {/* Header */}
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  gap: "12px",
+                  gap: "14px",
                   flexWrap: "wrap",
-                  marginBottom: "12px",
+                  marginBottom: "14px",
                 }}
               >
-                <div>
+                <div style={{ minWidth: 0 }}>
                   <p
                     className="mono"
                     style={{
                       fontSize: "11px",
-                      color: "var(--t3)",
+                      color: "var(--section-accent)",
                       textTransform: "uppercase",
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
+                      letterSpacing: "1.4px",
+                      marginBottom: "5px",
+                      fontWeight: 600,
                     }}
                   >
                     {role.company_full} &middot; {role.location}
                   </p>
                   <h3
                     style={{
-                      fontSize: "17px",
+                      fontSize: "18px",
                       fontWeight: 700,
                       color: "var(--t1)",
-                      lineHeight: 1.2,
+                      lineHeight: 1.25,
+                      letterSpacing: "-0.3px",
                     }}
                   >
                     {role.title}
@@ -59,9 +68,11 @@ export default function ExperienceSection({
                     fontSize: "11px",
                     color: "var(--t3)",
                     border: "1px solid var(--b1)",
-                    padding: "3px 8px",
+                    padding: "4px 9px",
                     whiteSpace: "nowrap",
                     flexShrink: 0,
+                    borderRadius: "5px",
+                    background: "rgba(255, 255, 255, 0.02)",
                   }}
                 >
                   {role.start} — {role.end}
@@ -74,8 +85,8 @@ export default function ExperienceSection({
                   listStyle: "none",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "7px",
-                  marginBottom: "14px",
+                  gap: "8px",
+                  marginBottom: "16px",
                 }}
               >
                 {role.bullets.map((b, i) => (
@@ -83,7 +94,7 @@ export default function ExperienceSection({
                     key={i}
                     style={{
                       display: "flex",
-                      gap: "10px",
+                      gap: "12px",
                       fontSize: "15px",
                       color: "var(--t2)",
                       lineHeight: 1.65,
@@ -92,10 +103,10 @@ export default function ExperienceSection({
                     <span
                       className="mono"
                       style={{
-                        color: "var(--live)",
+                        color: "var(--section-accent)",
                         flexShrink: 0,
-                        marginTop: "3px",
-                        fontSize: "10px",
+                        marginTop: "5px",
+                        fontSize: "9px",
                       }}
                     >
                       ▸
@@ -105,9 +116,9 @@ export default function ExperienceSection({
                 ))}
               </ul>
 
-              {/* Inline skills — adithyakrishnan-style */}
+              {/* Inline skills */}
               {role.tags && role.tags.length > 0 && (
-                <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
                   {role.tags.map((tag) => (
                     <span key={tag} className="skill-tag mono">
                       {tag}

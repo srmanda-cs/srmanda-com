@@ -1,102 +1,79 @@
-import type { Projects } from "@/types";
+"use client";
+
+import type { Projects, Project } from "@/types";
+import SectionHeader from "./SectionHeader";
+import { useTagHover, useObservedTags } from "./SkillsContext";
 
 export default function ProjectsSection({ projects }: { projects: Projects }) {
   return (
-    <section className="section" id="projects">
-      <div className="section-label">
-        <span className="section-label-text mono">projects</span>
-        <div className="section-label-line" />
-      </div>
+    <section
+      className="section"
+      id="projects"
+      style={
+        {
+          "--section-accent": "var(--aurora-indigo)",
+          "--section-accent-soft": "rgba(79, 70, 229, 0.22)",
+        } as React.CSSProperties
+      }
+    >
+      <SectionHeader number="03" label="projects" tag="things i've built" />
 
-      {/* Scroll-snap carousel — one card visible, edges of others peek */}
-      <div className="carousel">
+      <div className="projects-grid">
         {projects.featured.map((p) => (
-          <div key={p.name} className="carousel-item">
-            <div className="card" style={{ height: "100%" }}>
-              {/* Project name + links */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "10px",
-                  marginBottom: "10px",
-                }}
-              >
-                <h3
-                  className="mono"
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    color: "var(--t1)",
-                    wordBreak: "break-all",
-                    lineHeight: 1.3,
-                  }}
-                >
-                  {p.name}
-                </h3>
-                <div style={{ display: "flex", gap: "5px", flexShrink: 0 }}>
-                  {p.github && <PLink href={p.github} label="GH" />}
-                  {p.demo && <PLink href={p.demo} label="↗" />}
-                </div>
-              </div>
-
-              {/* Description */}
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "var(--t2)",
-                  lineHeight: 1.7,
-                  marginBottom: "14px",
-                }}
-              >
-                {p.description}
-              </p>
-
-              {/* Inline tech stack — key feature from adithyakrishnan */}
-              <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
-                {p.tags.map((tag) => (
-                  <span key={tag} className="skill-tag mono">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <ProjectCard key={p.name} p={p} />
         ))}
       </div>
-
-      <p
-        className="mono"
-        style={{
-          marginTop: "10px",
-          fontSize: "11px",
-          color: "var(--t4)",
-          letterSpacing: "0.5px",
-        }}
-      >
-        ← swipe or scroll →
-      </p>
     </section>
   );
 }
 
-function PLink({ href, label }: { href: string; label: string }) {
+function ProjectCard({ p }: { p: Project }) {
+  const hover = useTagHover(p.tags);
+  const observeRef = useObservedTags(p.tags, `project:${p.name}`);
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="mono"
-      style={{
-        fontSize: "11px",
-        color: "var(--t3)",
-        textDecoration: "none",
-        border: "1px solid var(--b1)",
-        padding: "2px 7px",
-      }}
+    <article
+      ref={observeRef as React.RefObject<HTMLElement>}
+      className="card-glass project-card"
+      onMouseEnter={hover.onMouseEnter}
+      onMouseLeave={hover.onMouseLeave}
     >
-      {label}
-    </a>
+      <header className="project-card-head">
+        <span className="project-card-name mono">{p.name}</span>
+        <div className="project-card-actions">
+          {p.github && (
+            <a
+              href={p.github}
+              target="_blank"
+              rel="noreferrer"
+              className="project-card-link mono"
+              aria-label={`${p.name} on GitHub`}
+            >
+              github
+            </a>
+          )}
+          {p.demo && (
+            <a
+              href={p.demo}
+              target="_blank"
+              rel="noreferrer"
+              className="project-card-link mono"
+              aria-label={`${p.name} live demo`}
+            >
+              demo&nbsp;↗
+            </a>
+          )}
+        </div>
+      </header>
+
+      <p className="project-card-desc">{p.description}</p>
+
+      <div className="project-card-tags">
+        {p.tags.map((tag) => (
+          <span key={tag} className="skill-tag mono">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </article>
   );
 }
