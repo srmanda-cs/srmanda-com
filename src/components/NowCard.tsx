@@ -6,6 +6,11 @@ export default function NowCard({ current }: { current?: CurrentProject }) {
   return (
     <div className="now-card card-glass">
       <header className="now-card-head">
+        <div className="mac-dots">
+          <span className="mac-dot mac-dot-red" aria-hidden />
+          <span className="mac-dot mac-dot-yellow" aria-hidden />
+          <span className="mac-dot mac-dot-green" aria-hidden />
+        </div>
         <span className="now-card-label mono">
           <span className="now-card-dot" aria-hidden />
           currently shipping

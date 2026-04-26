@@ -188,14 +188,24 @@ export default function Hero({
           </motion.div>
         </div>
 
-        {/* RIGHT COLUMN: avatar + stats */}
+        {/* RIGHT COLUMN: avatar (mac window) + stats */}
         <motion.div
           className="hero-side"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Avatar name={profile.name} size="lg" />
+          <div className="mac-window">
+            <div className="mac-chrome">
+              <div className="mac-dots">
+                <span className="mac-dot mac-dot-red" aria-hidden />
+                <span className="mac-dot mac-dot-yellow" aria-hidden />
+                <span className="mac-dot mac-dot-green" aria-hidden />
+              </div>
+              <span className="mac-chrome-title mono">profile.jpg</span>
+            </div>
+            <Avatar name={profile.name} size="lg" />
+          </div>
           <StatsStrip stats={stats} />
         </motion.div>
       </div>

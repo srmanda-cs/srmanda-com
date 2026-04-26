@@ -36,9 +36,12 @@ export default function Avatar({
           decoding="async"
         />
       ) : (
-        <span className="avatar-initials" aria-label={`${name} avatar`}>
-          {initials}
-        </span>
+        <>
+          <div className="avatar-fallback-bg" aria-hidden />
+          <span className="avatar-initials" aria-label={`${name} avatar`}>
+            {initials}
+          </span>
+        </>
       )}
     </div>
   );
