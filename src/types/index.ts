@@ -68,7 +68,6 @@ export interface Experience {
 export interface Project {
   name: string;
   description: string;
-  metric?: string;
   github?: string;
   demo?: string;
   tags: string[];

@@ -3,7 +3,6 @@
     {
       "name": "placeholder-infra-toolkit",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A production-ready toolkit for automating cloud infrastructure provisioning with Terraform and policy-as-code guardrails.",
-      "metric": "↓ 40% deploy time",
       "github": "",
       "demo": "",
       "tags": ["Terraform", "Python", "AWS", "HCL"]
@@ -11,7 +10,6 @@
     {
       "name": "k8s-observability-stack",
       "description": "Ut labore et dolore magna aliqua. Opinionated Kubernetes observability bootstrapper with Prometheus, Grafana, and OpenTelemetry pre-configured and ready to deploy in under 10 minutes.",
-      "metric": "< 10 min to deploy",
       "github": "",
       "demo": "",
       "tags": ["Kubernetes", "Helm", "Prometheus", "Grafana"]
@@ -19,7 +17,6 @@
     {
       "name": "data-pipeline-orchestrator",
       "description": "Duis aute irure dolor in reprehenderit. A lightweight workflow orchestration layer for research data pipelines with lineage tracking, retry logic, and Slack alerting built in.",
-      "metric": "99.9% pipeline uptime",
       "github": "",
       "demo": "",
       "tags": ["Python", "PostgreSQL", "Docker", "GitHub Actions"]

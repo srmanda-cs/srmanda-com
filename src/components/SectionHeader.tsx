@@ -1,5 +1,3 @@
-import GhostNumber from "./GhostNumber";
-
 export default function SectionHeader({
   number,
   label,
@@ -11,7 +9,9 @@ export default function SectionHeader({
 }) {
   return (
     <div className="section-header-wrap">
-      <GhostNumber number={number} />
+      <span className="section-header-ghost mono" aria-hidden>
+        {number}
+      </span>
       <div className="section-header">
         <span className="section-header-num mono">{number}</span>
         <span className="section-header-label mono">{label}</span>
