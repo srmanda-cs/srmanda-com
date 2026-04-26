@@ -4,14 +4,14 @@
       "school": "University of North Carolina at Chapel Hill",
       "short": "UNC Chapel Hill",
       "degree": "Master of Science",
-      "field": "Placeholder Field of Study",
+      "field": "Computer Science",
       "start": 2022,
       "end": "Present",
       "current": true
     },
     {
-      "school": "Placeholder State University",
-      "short": "Placeholder University",
+      "school": "Amrita Vishwa Vidyapeetham",
+      "short": "Amrita University",
       "degree": "Bachelor of Science",
       "field": "Computer Science",
       "start": 2018,
@@ -21,18 +21,18 @@
   ],
   "certifications": [
     {
-      "name": "Placeholder Cloud Certification",
-      "short": "PCC-001",
-      "issuer": "Placeholder Cloud Provider",
-      "icon": "☁️",
+      "name": "HashiCorp Certified: Terraform Associate",
+      "short": "HCTAO-004",
+      "issuer": "HashiCorp",
+      "icon": "⚙️",
       "year": 2024
     },
     {
-      "name": "Placeholder Kubernetes Cert",
-      "short": "CKX",
-      "issuer": "Cloud Native Computing Foundation",
-      "icon": "⚙️",
-      "year": 2023
+      "name": " AWS Certified Solutions Architect – Associate",
+      "short": "CSAA-C03",
+      "issuer": "AWS",
+      "icon": "☁️",
+      "year": 2024
     }
   ]
 }
