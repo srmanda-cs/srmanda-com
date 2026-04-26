@@ -2143,6 +2143,14 @@ body::after {
   position: relative;
 }
 
+@media (min-width: 1024px) {
+  .section.contact-section {
+    max-width: 1180px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
 .contact-lede {
   font-size: 17px;
   color: var(--t2);
