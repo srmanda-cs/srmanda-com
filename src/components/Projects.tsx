@@ -73,6 +73,10 @@ function ProjectCard({ p }: { p: Project }) {
       <div className="project-card-body">
         <p className="project-card-desc">{p.description}</p>
 
+        {p.metric && (
+          <span className="project-card-metric mono">{p.metric}</span>
+        )}
+
         <div className="project-card-tags">
           {p.tags.map((tag) => (
             <span key={tag} className="skill-tag mono">

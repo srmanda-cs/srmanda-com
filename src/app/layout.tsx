@@ -4,6 +4,7 @@ import "./globals.css";
 import { getProfile } from "@/lib/data";
 import AuroraBackground from "@/components/AuroraBackground";
 import ScrollProgress from "@/components/ScrollProgress";
+import AuroraCursor from "@/components/AuroraCursor";
 
 const atkinson = Atkinson_Hyperlegible({
   subsets: ["latin"],
@@ -75,6 +76,7 @@ export default function RootLayout({
       <body>
         <AuroraBackground />
         <ScrollProgress />
+        <AuroraCursor />
         {children}
       </body>
     </html>
