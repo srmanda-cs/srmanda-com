@@ -1,25 +1,26 @@
 import type { Stats, StatItem } from "@/types";
 
+// Restrained palette — only aurora tones, nothing warm/foreign.
 const TINT: Record<StatItem["color"], { solid: string; soft: string; border: string }> = {
   green: {
     solid: "var(--aurora-green)",
-    soft: "rgba(34, 197, 94, 0.16)",
-    border: "rgba(34, 197, 94, 0.28)",
+    soft: "rgba(34, 197, 94, 0.12)",
+    border: "rgba(34, 197, 94, 0.22)",
   },
   purple: {
     solid: "var(--aurora-violet)",
-    soft: "rgba(109, 98, 240, 0.16)",
-    border: "rgba(109, 98, 240, 0.28)",
+    soft: "rgba(109, 98, 240, 0.12)",
+    border: "rgba(109, 98, 240, 0.22)",
   },
   cyan: {
     solid: "var(--aurora-cyan)",
-    soft: "rgba(6, 182, 212, 0.16)",
-    border: "rgba(6, 182, 212, 0.28)",
+    soft: "rgba(6, 182, 212, 0.12)",
+    border: "rgba(6, 182, 212, 0.22)",
   },
   white: {
-    solid: "#f59e0b", // amber for "cost saved" — distinct from the others
-    soft: "rgba(245, 158, 11, 0.14)",
-    border: "rgba(245, 158, 11, 0.28)",
+    solid: "var(--aurora-indigo)",
+    soft: "rgba(79, 70, 229, 0.12)",
+    border: "rgba(79, 70, 229, 0.22)",
   },
 };
 
@@ -72,8 +73,10 @@ export default function StatsStrip({ stats }: { stats?: Stats }) {
             <span className="stats-tile-icon" aria-hidden>
               {ICON[s.color]}
             </span>
-            <span className="stats-tile-num">{s.value}</span>
-            <span className="stats-tile-label mono">{s.label}</span>
+            <div className="stats-tile-text">
+              <span className="stats-tile-num">{s.value}</span>
+              <span className="stats-tile-label mono">{s.label}</span>
+            </div>
           </div>
         );
       })}
