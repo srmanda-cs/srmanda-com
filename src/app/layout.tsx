@@ -20,18 +20,27 @@ const jetbrainsMono = JetBrains_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const profile = getProfile();
-  const title = `${profile.name} — ${profile.title}`;
+  // Short tab-title (survives heavy truncation), long social/OG title.
+  const shortTitle = `${profile.first_name} ${profile.last_name} — ${profile.title}`;
+  const tabTitle = `${profile.first_name} · ${profile.title.replace(
+    "Cloud Infrastructure Engineer",
+    "Cloud Infra"
+  )}`;
   const description = profile.bio;
   const ogImage = "/profile-avatar.jpg";
 
   return {
-    title,
+    title: {
+      default: tabTitle,
+      template: `%s · ${profile.first_name} ${profile.last_name}`,
+    },
     description,
     metadataBase: new URL("https://ashmanda.dev"),
     openGraph: {
-      title,
+      title: shortTitle,
       description,
       type: "profile",
+      siteName: `${profile.name}`,
       images: [
         {
           url: ogImage,
@@ -43,12 +52,13 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: shortTitle,
       description,
       images: [ogImage],
     },
     icons: {
-      icon: [{ url: "/profile-avatar.jpg", type: "image/jpeg" }],
+      icon: [{ url: "/icon.jpg", type: "image/jpeg" }],
+      shortcut: [{ url: "/icon.jpg", type: "image/jpeg" }],
       apple: [{ url: "/profile-avatar.jpg" }],
     },
   };

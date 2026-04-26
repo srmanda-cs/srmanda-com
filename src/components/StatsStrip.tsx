@@ -1,10 +1,52 @@
 import type { Stats, StatItem } from "@/types";
 
-const colorVar: Record<StatItem["color"], string> = {
-  green: "var(--aurora-green)",
-  purple: "var(--aurora-violet)",
-  cyan: "var(--aurora-cyan)",
-  white: "var(--t1)",
+const TINT: Record<StatItem["color"], { solid: string; soft: string; border: string }> = {
+  green: {
+    solid: "var(--aurora-green)",
+    soft: "rgba(34, 197, 94, 0.16)",
+    border: "rgba(34, 197, 94, 0.28)",
+  },
+  purple: {
+    solid: "var(--aurora-violet)",
+    soft: "rgba(109, 98, 240, 0.16)",
+    border: "rgba(109, 98, 240, 0.28)",
+  },
+  cyan: {
+    solid: "var(--aurora-cyan)",
+    soft: "rgba(6, 182, 212, 0.16)",
+    border: "rgba(6, 182, 212, 0.28)",
+  },
+  white: {
+    solid: "#f59e0b", // amber for "cost saved" — distinct from the others
+    soft: "rgba(245, 158, 11, 0.14)",
+    border: "rgba(245, 158, 11, 0.28)",
+  },
+};
+
+const ICON: Record<StatItem["color"], React.ReactNode> = {
+  green: (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v6l4 2" />
+    </svg>
+  ),
+  purple: (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M3 7h18M3 12h18M3 17h12" />
+    </svg>
+  ),
+  cyan: (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  ),
+  white: (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="m6 9 6 6 6-6" />
+      <path d="M6 17h12" />
+    </svg>
+  ),
 };
 
 export default function StatsStrip({ stats }: { stats?: Stats }) {
@@ -12,15 +54,29 @@ export default function StatsStrip({ stats }: { stats?: Stats }) {
   if (items.length === 0) return null;
 
   return (
-    <div className="stats-strip">
-      {items.map((s) => (
-        <div key={s.label} className="stats-cell">
-          <div className="stats-value" style={{ color: colorVar[s.color] }}>
-            {s.value}
+    <div className="stats-bento">
+      {items.map((s) => {
+        const t = TINT[s.color];
+        return (
+          <div
+            key={s.label}
+            className="stats-tile"
+            style={
+              {
+                "--tint": t.solid,
+                "--tint-soft": t.soft,
+                "--tint-border": t.border,
+              } as React.CSSProperties
+            }
+          >
+            <span className="stats-tile-icon" aria-hidden>
+              {ICON[s.color]}
+            </span>
+            <span className="stats-tile-num">{s.value}</span>
+            <span className="stats-tile-label mono">{s.label}</span>
           </div>
-          <div className="stats-label mono">{s.label}</div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

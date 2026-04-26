@@ -180,7 +180,11 @@ export default function Hero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: lastNameDelay + 0.5 }}
           >
-            <SocialIcons profile={profile} size="lg" />
+            <SocialIcons
+              profile={profile}
+              size="lg"
+              only={["github", "linkedin", "email", "leetcode", "staff_directory"]}
+            />
           </motion.div>
         </div>
 

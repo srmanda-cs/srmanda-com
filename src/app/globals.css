@@ -1631,11 +1631,11 @@ body::after {
 }
 
 .about-bio {
-  font-size: 19px;
+  font-size: 1.1875rem; /* 19px */
   color: var(--t2);
   line-height: 1.7;
-  margin-bottom: 28px;
-  max-width: 640px;
+  margin-bottom: 0; /* let the next section's padding-top control the gap */
+  max-width: 40rem;
 }
 
 .cert-card-issuer {
@@ -2005,47 +2005,83 @@ body::after {
 }
 
 /* ============================================================
-   STATS STRIP (hero right column)
+   STATS BENTO (hero right column) — 4 distinct colored tiles
    ============================================================ */
-.stats-strip {
+.stats-bento {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--b1);
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--b1);
+  gap: 0.625rem;
 }
 
-.stats-cell {
-  background: linear-gradient(180deg, var(--bg-card-1), var(--bg-card-2));
-  padding: 18px 16px;
+.stats-tile {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  transition: background 0.24s var(--ease-out);
+  gap: 0.4rem;
+  padding: 0.875rem 0.875rem 0.75rem;
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(135deg, var(--tint-soft) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005));
+  border: 1px solid var(--tint-border);
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 0.24s var(--ease-out),
+    box-shadow 0.24s var(--ease-out),
+    border-color 0.24s var(--ease-out);
 }
 
-.stats-cell:hover {
-  background: linear-gradient(
-    180deg,
-    var(--bg-card-1),
-    rgba(109, 98, 240, 0.06)
+/* Each tile gets a faint glow halo in its tint that intensifies on hover */
+.stats-tile::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 80% at 30% 0%,
+    color-mix(in srgb, var(--tint) 22%, transparent),
+    transparent 70%
   );
+  opacity: 0.55;
+  z-index: -1;
 }
 
-.stats-value {
-  font-size: 28px;
+.stats-tile:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--tint) 60%, transparent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--tint) 12%, transparent),
+    0 14px 28px -14px color-mix(in srgb, var(--tint) 50%, transparent);
+}
+
+.stats-tile-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--tint) 18%, transparent);
+  color: var(--tint);
+}
+
+.stats-tile-num {
+  font-size: clamp(1.625rem, 4.4vw, 2.125rem); /* 26-34px */
   font-weight: 700;
-  letter-spacing: -1.5px;
+  letter-spacing: -0.075rem;
   line-height: 1;
+  color: var(--tint);
+  font-feature-settings: "tnum" 1;
 }
 
-.stats-label {
-  font-size: 10px;
-  color: var(--t3);
+.stats-tile-label {
+  font-size: 0.625rem;
+  color: var(--t2);
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
 }
 
 /* ============================================================
