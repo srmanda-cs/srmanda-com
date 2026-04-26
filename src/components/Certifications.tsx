@@ -76,7 +76,7 @@ export default function Certifications({
       style={
         {
           "--section-accent": "var(--aurora-cyan)",
-          "--section-accent-soft": "rgba(6, 182, 212, 0.22)",
+          "--section-accent-soft": "rgba(59, 130, 246, 0.22)",
         } as React.CSSProperties
       }
     >

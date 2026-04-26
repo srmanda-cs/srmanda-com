@@ -13,7 +13,7 @@ export default function Contact({ profile }: { profile: Profile }) {
       style={
         {
           "--section-accent": "var(--aurora-violet)",
-          "--section-accent-soft": "rgba(109, 98, 240, 0.22)",
+          "--section-accent-soft": "rgba(225, 29, 72, 0.22)",
         } as React.CSSProperties
       }
     >

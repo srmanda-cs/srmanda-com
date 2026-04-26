@@ -9,24 +9,24 @@ import type { Stats, StatItem } from "@/types";
 //   white  → fuchsia   (cost saved)
 const TINT: Record<StatItem["color"], { solid: string; soft: string; border: string }> = {
   green: {
-    solid: "#ec4899",
-    soft: "rgba(236, 72, 153, 0.14)",
-    border: "rgba(236, 72, 153, 0.32)",
+    solid: "#e11d48",
+    soft: "rgba(225, 29, 72, 0.14)",
+    border: "rgba(225, 29, 72, 0.32)",
   },
   purple: {
+    solid: "#38bdf8",
+    soft: "rgba(56, 189, 248, 0.14)",
+    border: "rgba(56, 189, 248, 0.32)",
+  },
+  cyan: {
     solid: "#f97316",
     soft: "rgba(249, 115, 22, 0.14)",
     border: "rgba(249, 115, 22, 0.32)",
   },
-  cyan: {
-    solid: "#f59e0b",
-    soft: "rgba(245, 158, 11, 0.14)",
-    border: "rgba(245, 158, 11, 0.32)",
-  },
   white: {
-    solid: "#d946ef",
-    soft: "rgba(217, 70, 239, 0.14)",
-    border: "rgba(217, 70, 239, 0.32)",
+    solid: "#a855f7",
+    soft: "rgba(168, 85, 247, 0.14)",
+    border: "rgba(168, 85, 247, 0.32)",
   },
 };
 

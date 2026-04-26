@@ -12,7 +12,7 @@ export default function ProjectsSection({ projects }: { projects: Projects }) {
       style={
         {
           "--section-accent": "var(--aurora-indigo)",
-          "--section-accent-soft": "rgba(79, 70, 229, 0.22)",
+          "--section-accent-soft": "rgba(190, 18, 60, 0.22)",
         } as React.CSSProperties
       }
     >

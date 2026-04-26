@@ -9,7 +9,7 @@ export default function About({ profile }: { profile: Profile }) {
       style={
         {
           "--section-accent": "var(--aurora-green)",
-          "--section-accent-soft": "rgba(34, 197, 94, 0.18)",
+          "--section-accent-soft": "rgba(249, 115, 22, 0.18)",
         } as React.CSSProperties
       }
     >
