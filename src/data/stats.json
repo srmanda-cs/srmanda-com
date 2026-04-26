@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "value": "3+", "label": "yrs exp", "color": "green" },
+    { "value": "20+", "label": "services", "color": "purple" },
+    { "value": "2", "label": "cloud certs", "color": "cyan" },
+    { "value": "30%", "label": "cost↓ saved", "color": "white" }
+  ]
+}

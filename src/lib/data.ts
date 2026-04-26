@@ -1,6 +1,8 @@
-import fs from "fs";
-import path from "path";
-import yaml from "js-yaml";
+/**
+ * Data layer — imports JSON files at build time.
+ * No `fs`, no `js-yaml`, works in Cloudflare Workers.
+ * To update content, edit the files in src/data/*.json
+ */
 import type {
   Profile,
   Stats,
@@ -12,20 +14,20 @@ import type {
   Impact,
 } from "@/types";
 
-function loadYaml<T>(filename: string): T {
-  const filePath = path.join(process.cwd(), "src", "data", filename);
-  const contents = fs.readFileSync(filePath, "utf8");
-  return yaml.load(contents) as T;
-}
+import profileData from "@/data/profile.json";
+import statsData from "@/data/stats.json";
+import currentData from "@/data/current.json";
+import skillsData from "@/data/skills.json";
+import experienceData from "@/data/experience.json";
+import projectsData from "@/data/projects.json";
+import educationData from "@/data/education.json";
+import impactData from "@/data/impact.json";
 
-export const getProfile = (): Profile => loadYaml<Profile>("profile.yaml");
-export const getStats = (): Stats => loadYaml<Stats>("stats.yaml");
-export const getCurrent = (): CurrentProject =>
-  loadYaml<CurrentProject>("current.yaml");
-export const getSkills = (): Skills => loadYaml<Skills>("skills.yaml");
-export const getExperience = (): Experience =>
-  loadYaml<Experience>("experience.yaml");
-export const getProjects = (): Projects => loadYaml<Projects>("projects.yaml");
-export const getEducation = (): Education =>
-  loadYaml<Education>("education.yaml");
-export const getImpact = (): Impact => loadYaml<Impact>("impact.yaml");
+export const getProfile = (): Profile => profileData as Profile;
+export const getStats = (): Stats => statsData as Stats;
+export const getCurrent = (): CurrentProject => currentData as CurrentProject;
+export const getSkills = (): Skills => skillsData as Skills;
+export const getExperience = (): Experience => experienceData as Experience;
+export const getProjects = (): Projects => projectsData as Projects;
+export const getEducation = (): Education => educationData as Education;
+export const getImpact = (): Impact => impactData as Impact;

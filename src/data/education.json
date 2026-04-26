@@ -1,0 +1,38 @@
+{
+  "degrees": [
+    {
+      "school": "University of North Carolina at Chapel Hill",
+      "short": "UNC Chapel Hill",
+      "degree": "Master of Science",
+      "field": "Placeholder Field of Study",
+      "start": 2022,
+      "end": "Present",
+      "current": true
+    },
+    {
+      "school": "Placeholder State University",
+      "short": "Placeholder University",
+      "degree": "Bachelor of Science",
+      "field": "Computer Science",
+      "start": 2018,
+      "end": 2022,
+      "current": false
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Placeholder Cloud Certification",
+      "short": "PCC-001",
+      "issuer": "Placeholder Cloud Provider",
+      "icon": "☁️",
+      "year": 2024
+    },
+    {
+      "name": "Placeholder Kubernetes Cert",
+      "short": "CKX",
+      "issuer": "Cloud Native Computing Foundation",
+      "icon": "⚙️",
+      "year": 2023
+    }
+  ]
+}
