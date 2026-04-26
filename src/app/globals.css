@@ -1476,18 +1476,12 @@ body::after {
 }
 
 .avatar-lg {
+  display: flex; /* override .avatar's inline-flex so width: 100% truly fills */
   width: 100%;
-  max-width: 280px;
   aspect-ratio: 1 / 1;
   border-radius: 20px;
-  align-self: center;
-}
-
-@media (min-width: 768px) {
-  .avatar-lg {
-    max-width: none;
-    align-self: stretch;
-  }
+  align-self: stretch;
+  box-sizing: border-box;
 }
 
 .avatar-ring::after {
@@ -1793,21 +1787,24 @@ body::after {
 .stats-bento {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
+  gap: 0.625rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .stats-tile {
   position: relative;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
-  min-height: 3.5rem; /* 56px to match hero social icons */
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1rem 1.125rem;
+  min-height: 4.5rem;
   border-radius: 0.75rem;
   background: linear-gradient(135deg, var(--tint-soft) 0%, transparent 80%);
   border: 1px solid var(--tint-border);
   isolation: isolate;
+  box-sizing: border-box;
   transition:
     transform 0.24s var(--ease-out),
     border-color 0.24s var(--ease-out),
@@ -1822,32 +1819,8 @@ body::after {
     0 10px 20px -10px color-mix(in srgb, var(--tint) 40%, transparent);
 }
 
-.stats-tile-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--tint) 14%, transparent);
-  color: var(--tint);
-  flex-shrink: 0;
-}
-
-.stats-tile-icon svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.stats-tile-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-width: 0;
-}
-
 .stats-tile-num {
-  font-size: clamp(1.25rem, 3.4vw, 1.5rem); /* 20-24px */
+  font-size: clamp(1.375rem, 3.6vw, 1.625rem); /* 22-26px */
   font-weight: 700;
   letter-spacing: -0.04rem;
   line-height: 1;
@@ -1856,7 +1829,7 @@ body::after {
 }
 
 .stats-tile-label {
-  font-size: 0.725rem;
+  font-size: 0.6875rem; /* 11px */
   color: var(--t3);
   text-transform: uppercase;
   letter-spacing: 0.08rem;
